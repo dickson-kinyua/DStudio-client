@@ -8,7 +8,7 @@ const Header = () => {
   const logged = useSelector((state) => state.user.user);
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
         credentials: "include",
         method: "POST",
       });

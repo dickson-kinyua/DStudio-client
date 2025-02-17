@@ -21,12 +21,15 @@ const CreatePost = () => {
 
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/createPost", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPost),
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/createPost`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newPost),
+          credentials: "include",
+        }
+      );
       if (!response.ok) {
         const error = await response.json();
         console.log(error);

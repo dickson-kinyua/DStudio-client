@@ -14,7 +14,7 @@ const RegisterPage = () => {
     const data = { name, password };
 
     try {
-      const response = await fetch("http://localhost:5000/register", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },

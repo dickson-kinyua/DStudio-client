@@ -17,7 +17,7 @@ const LoginPage = () => {
     const data = { name, password };
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
@@ -72,7 +72,6 @@ const LoginPage = () => {
           Register
         </Link>
       </p>
-     
     </div>
   );
 };
