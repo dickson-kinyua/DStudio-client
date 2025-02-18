@@ -26,6 +26,9 @@ const taskSlice = createSlice({
     deleteAllTasks: (state) => {
       state.tasks = [];
     },
+    updateTasks: (state, action) => {
+      state.tasks = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -49,5 +52,5 @@ const taskSlice = createSlice({
   },
 });
 
-export const { deleteAllTasks } = taskSlice.actions;
+export const { deleteAllTasks, updateTasks } = taskSlice.actions;
 export default taskSlice.reducer;

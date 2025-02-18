@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAllTasks, fetchTodo } from "../Features/Slices/taskSlice";
+import {
+  deleteAllTasks,
+  updateTasks,
+  fetchTodo,
+} from "../Features/Slices/taskSlice";
 import { Link } from "react-router-dom";
 
 const DisplayAllTasks = () => {
@@ -26,6 +30,11 @@ const DisplayAllTasks = () => {
       if (!response.ok) {
         throw new Error("Failed to update task");
       }
+      const updated = tasks?.map((task) =>
+        task._id === id ? { ...task, completed: "!completed" } : task
+      );
+      console.log(updated);
+      dispatch(updateTasks(updated));
 
       dispatch(fetchTodo()); // Refresh tasks only if update succeeds
     } catch (error) {
