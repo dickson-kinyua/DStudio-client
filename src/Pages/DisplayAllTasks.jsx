@@ -17,6 +17,12 @@ const DisplayAllTasks = () => {
   }, [dispatch]);
 
   const handleCompleted = async (id) => {
+    const updated = tasks?.map((task) =>
+      task._id === id ? { ...task, completed: "!completed" } : task
+    );
+    console.log(updated);
+    dispatch(updateTasks(updated));
+
     try {
       console.log(id);
       const response = await fetch(
@@ -30,11 +36,6 @@ const DisplayAllTasks = () => {
       if (!response.ok) {
         throw new Error("Failed to update task");
       }
-      const updated = tasks?.map((task) =>
-        task._id === id ? { ...task, completed: "!completed" } : task
-      );
-      console.log(updated);
-      dispatch(updateTasks(updated));
 
       dispatch(fetchTodo()); // Refresh tasks only if update succeeds
     } catch (error) {
