@@ -17,7 +17,7 @@ const LandingPage = () => {
       </div>
 
       <Link
-        className="bg-white text-gray-800 p-3 mb-10 rounded-3xl text-center"
+        className="bg-white text-gray-800 p-3 mb-40 rounded-3xl text-center"
         to={"/login"}
       >
         Get Started

@@ -85,7 +85,7 @@ const DisplayAllTasks = () => {
             .map((task) => (
               <li
                 className={`flex flex-row gap-2 task.completed ? "line-through text-gray-100" : ""`}
-                key={task._createdAt}
+                key={task.createdAt}
               >
                 <input
                   type="checkbox"
