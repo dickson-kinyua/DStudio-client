@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTodo } from "../Features/Slices/taskSlice";
+import { fetchTodo, updateTasks } from "../Features/Slices/taskSlice";
 import React, { useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { Link } from "react-router-dom";
@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const DisplayTasks = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.task.tasks) || [];
-  // const tasks = [];
 
   useEffect(() => {
     dispatch(fetchTodo());
@@ -26,7 +25,32 @@ const DisplayTasks = () => {
     { name: "Remaining", value: 100 - completedPercentage },
   ];
   const colors = ["#0088FE", "#DDDDDD"]; // Blue for completed, gray for remaining
+  const handleCompleted = async (id) => {
+    const updated = tasks?.map((task) =>
+      task._id === id ? { ...task, completed: "!completed" } : task
+    );
+    console.log(updated);
+    dispatch(updateTasks(updated));
 
+    try {
+      console.log(id);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/editPost/${id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update task");
+      }
+
+      dispatch(fetchTodo()); // Refresh tasks only if update succeeds
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
   return (
     <div className="flex flex-col gap-5 h-[72vh] p-2">
       <div className="h-auto flex justify-center w-full">
@@ -57,6 +81,24 @@ const DisplayTasks = () => {
           + Create new goal
         </Link>
       </div>
+      <div>
+        <p className="font-medium text-xl">To do today</p>
+        <ul className="flex flex-col gap-1 mt-2">
+          {tasks.slice(0, 3).map((task) => (
+            <li
+              key={task._id}
+              className="bg-gray-100 p-2 rounded-2xl text-gray-800"
+            >
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleCompleted(task._id)}
+              />{" "}
+              {task.todo}
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="flex flex-row gap-4">
         <Link to="/tasks" className="underline">
           View all ↗
@@ -66,14 +108,14 @@ const DisplayTasks = () => {
         </Link>
       </div>
 
-      <div className="h-[20vh] border-solid border-2 border-gray-100">
+      {/* <div className="h-[20vh] border-solid border-2 border-gray-100">
         <p className="bg-white text-gray-900 p-1">Today's Advice</p>
         <ul className="p-1">
           <li>Remember to get some sunlight ☀️</li>
           <li>Spend time with nature 🌿</li>
           <li>Learn something new 📖</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

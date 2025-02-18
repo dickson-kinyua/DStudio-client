@@ -37,6 +37,7 @@ const CreatePost = () => {
       }
       const res = await response.json();
       console.log(res);
+      setTodo("");
     } catch (error) {
       console.log(error);
     }

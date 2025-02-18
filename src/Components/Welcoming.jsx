@@ -3,12 +3,19 @@ import { useSelector } from "react-redux";
 
 const Welcoming = () => {
   const userInfo = useSelector((state) => state.user.user);
-  console.log(userInfo);
+  const tasks = useSelector((state) => state.task.tasks) || [];
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.reduce(
+    (count, task) => count + (task.completed ? 1 : 0),
+    0
+  );
 
   return (
     <div className="w-full mt-5">
-      <p className="text-2xl font-semibold text-center">
-        Welcome back, {userInfo.userName}!
+      <p className="text-xl font-semibold text-center">
+        {completedTasks >= 0.5 * totalTasks
+          ? "Yuhuu, your work is almost done!"
+          : `Welcome back, ${userInfo.userName}!`}
       </p>
     </div>
   );
