@@ -40,7 +40,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full items-center justify-center pt-5 h-[100vh] bg-orange-500 z-40">
+    <div className="flex flex-col w-full items-center pt-5 h-[100vh] bg-orange-500 z-40">
       <p className="font-bold text-2xl">Register a new account</p>
       <form
         onSubmit={handleRegister}
@@ -60,7 +60,7 @@ const RegisterPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="p-3 text-gray-700"
         />
-        <button className="bg-gray-600 p-3">Register</button>
+        <button className="bg-gray-600 text-white p-3">Register</button>
       </form>
       {error && <div className="text-red-600">{error}</div>}
     </div>

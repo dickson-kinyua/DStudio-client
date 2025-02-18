@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../Features/Slices/UserSlice";
 import { Link } from "react-router-dom";
+import { deleteAllTasks } from "../Features/Slices/taskSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const logged = useSelector((state) => state.user.user);
+
   const logout = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
@@ -21,13 +23,14 @@ const Header = () => {
       const res = await response.json();
       console.log(res);
       dispatch(updateUser({}));
+      dispatch(deleteAllTasks());
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="flex flex-row items-center justify-between text-white">
+    <div className="flex flex-row items-center justify-between bg-gray-200 rounded-2xl p-2">
       <div className="font-bold">
         <p>DStudio</p>
       </div>

@@ -12,7 +12,6 @@ const CreatePost = () => {
   const userInfo = useSelector((state) => state.user.user);
 
   const handlePriority = (e) => {
-    console.log(e.target.value);
     setPriority(e.target.value);
   };
 
@@ -44,8 +43,8 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="w-full h-[90vh] flex flex-col gap-5 p-3">
-      <Link to={"/home"} className="underline">
+    <div className="w-full flex flex-col gap-5 p-3">
+      <Link to={"/home"} className="underline p-2">
         Back to homepage
       </Link>
       {userInfo?.userName ? (
@@ -57,18 +56,17 @@ const CreatePost = () => {
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
             type="text"
-            className="p-2 text-black bg-white"
+            className="p-2 text-black w-full bg-white"
             placeholder="Task title"
           />
           <select
             onChange={(e) => handlePriority(e)}
             className="bg-white text-gray-900 w-full p-2"
           >
-            <option value="normal">Piority(Normal)</option>
-            <option value="medium">Priority(Medium)</option>
+            <option value="normal">Priority(Normal)</option>
             <option value="high">Priority(High)</option>
           </select>
-          <button className="bg-orange-600 w-full p-3">Add to list </button>
+          <button className="bg-orange-600 w-full p-3">Add to list 📃 </button>
         </form>
       ) : (
         <LoginPage />

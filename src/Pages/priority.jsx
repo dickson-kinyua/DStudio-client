@@ -30,10 +30,10 @@ const Priority = () => {
   return (
     <div className="flex flex-col gap-10 p-3">
       <Link to={"/home"} className="underline">
-        Back home
+        Back to homepage
       </Link>
       <p>High Priority</p>
-      <ul className="bg-gray-600 pl-1 grid grid-cols-2 gap-y-1  overflow-x-hidden">
+      <ul className="bg-orange-500 p-2 grid grid-cols-2 gap-y-1  overflow-x-hidden">
         {tasks
           ?.filter((task) => task.priority === "high")
           .map((task) => (

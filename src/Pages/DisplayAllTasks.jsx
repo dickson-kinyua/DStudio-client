@@ -65,7 +65,7 @@ const DisplayAllTasks = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 p-5 h-[90vh]">
+    <div className="flex flex-col gap-5 p-2">
       <Link to={"/home"} className="underline">
         Back to homepage
       </Link>
@@ -74,40 +74,17 @@ const DisplayAllTasks = () => {
           ? "Make your day productive"
           : `Today you have ${tasks.length} tasks!`}
       </p>
-      <div className="flex flex-col gap-2 bg-gray-600 h-[20vh] p-1">
+      <div className="flex flex-col gap-2 bg-orange-500  p-2">
         <p className="font-semibold text-xl h-[4vh]">High priority🔥</p>
-      </div>
-      <div className="flex flex-col gap-2 bg-gray-600 h-[25vh] p-1 overflow-x-hidden">
-        <p className="font-semibold text-xl">Today tasks</p>
-        <ul className="pl-1">
-          {tasks.map((task) => (
-            <li
-              className={`flex flex-row gap-2 ${
-                task.completed ? "line-through text-gray-100" : ""
-              }`}
-              key={task._id}
-            >
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleCompleted(task._id)}
-              />
-              {task.todo}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="flex flex-col gap-2 bg-gray-600 h-[25vh] p-1 overflow-x-hidden">
-        <p className="font-semibold text-xl h-[3vh]">Completed tasks</p>
-        <ul className="pl-1 h-[22vh]">
+        <ul className="pl-1 grid grid-cols-2">
           {tasks
-            ?.filter((task) => task.completed)
-            .map((task, index) => (
+            ?.filter((task) => task.priority === "high")
+            .map((task) => (
               <li
                 className={`flex flex-row gap-2 ${
-                  task.completed ? "line-through text-gray-100" : ""
+                  task.completed ? "line-through text-gray-500" : ""
                 }`}
-                key={index}
+                key={task._id}
               >
                 <input
                   type="checkbox"
@@ -119,8 +96,31 @@ const DisplayAllTasks = () => {
             ))}
         </ul>
       </div>
-      <button className="bg-gray-200 text-gray-950 p-2" onClick={clearTasks}>
-        Clear list
+      <div className="flex flex-col gap-2 bg-orange-400 p-2">
+        <p className="font-semibold text-xl">Other tasks</p>
+        <ul className="pl-1 grid grid-cols-2">
+          {tasks
+            ?.filter((task) => task.priority !== "high")
+            .map((task) => (
+              <li
+                className={`flex flex-row gap-2 ${
+                  task.completed ? "line-through text-gray-500" : ""
+                }`}
+                key={task._id}
+              >
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleCompleted(task._id)}
+                />
+                {task.todo}
+              </li>
+            ))}
+        </ul>
+      </div>
+
+      <button className="bg-gray-400 text-gray-950 p-2" onClick={clearTasks}>
+        Clear list ✖
       </button>
     </div>
   );

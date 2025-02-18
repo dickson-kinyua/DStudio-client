@@ -5,7 +5,7 @@ import React from "react";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col gap-3 p-2">
+    <div className="flex flex-col gap-2 p-2">
       <Header />
       <Welcoming />
       <DisplayTasks />

@@ -25,15 +25,15 @@ const DisplayTasks = () => {
     { name: "Remaining", value: 100 - completedPercentage },
   ];
   const colors = ["#0088FE", "#DDDDDD"]; // Blue for completed, gray for remaining
+
   const handleCompleted = async (id) => {
     const updated = tasks?.map((task) =>
       task._id === id ? { ...task, completed: "!completed" } : task
     );
-    console.log(updated);
+
     dispatch(updateTasks(updated));
 
     try {
-      console.log(id);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/editPost/${id}`,
         {
@@ -52,9 +52,9 @@ const DisplayTasks = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-5 h-[72vh] p-2">
-      <div className="h-auto flex justify-center w-full">
-        <PieChart width={300} height={160} className="h-[20vh]">
+    <div className="flex flex-col gap-3  p-2">
+      <div className="h-auto flex justify-center w-full bg-orange-500 p-2 rounded-2xl">
+        <PieChart width={300} height={160}>
           <Pie
             data={pieData}
             cx="50%"
@@ -73,7 +73,7 @@ const DisplayTasks = () => {
           <Legend />
         </PieChart>
       </div>
-      <div className="w-full flex items-center justify-center text-black mt-4">
+      <div className="w-full flex items-center justify-center text-gray-900 font-semibold mt-4">
         <Link
           className="bg-white rounded-2xl w-fit text-center p-2"
           to="/addTask"
@@ -81,13 +81,14 @@ const DisplayTasks = () => {
           + Create new goal
         </Link>
       </div>
+
       <div>
         <p className="font-medium text-xl">To do today</p>
         <ul className="flex flex-col gap-1 mt-2">
           {tasks.slice(0, 3).map((task) => (
             <li
               key={task._id}
-              className="bg-gray-100 p-2 rounded-2xl text-gray-800"
+              className="bg-gray-300 p-2 rounded-2xl text-gray-800"
             >
               <input
                 type="checkbox"
@@ -99,9 +100,9 @@ const DisplayTasks = () => {
           ))}
         </ul>
       </div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-6">
         <Link to="/tasks" className="underline">
-          View all ↗
+          View all tasks ↗
         </Link>
         <Link to="/priority" className="underline">
           High priority ↗

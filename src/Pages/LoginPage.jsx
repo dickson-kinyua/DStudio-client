@@ -46,7 +46,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 justify-center bg-orange-500 items-center h-[100vh]">
+    <div className="flex flex-col gap-4  bg-orange-500 items-center h-[100vh]">
       <form onSubmit={handleLogin} className="flex flex-col gap-3 mt-10 w-3/4">
         <input
           type="text"
@@ -62,7 +62,7 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="p-3 text-gray-800"
         />
-        <button className="bg-gray-700 p-3">Login</button>
+        <button className="bg-gray-600 text-white p-3">Login</button>
       </form>
       {error && <div>{error}</div>}
 
