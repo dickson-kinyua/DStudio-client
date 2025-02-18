@@ -7,40 +7,51 @@ const DisplayAllTasks = () => {
   const tasks = useSelector((state) => state.task.tasks);
   console.log(tasks);
   const dispatch = useDispatch();
-  const isChecked = false;
 
   useEffect(() => {
     dispatch(fetchTodo());
   }, [dispatch]);
 
   const handleCompleted = async (id) => {
-    const response = await fetch(`http://localhost:5000/editPost/${id}`, {
-      method: "PUT",
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
-      return;
+    try {
+      console.log(id);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/editPost/${id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update task");
+      }
+
+      dispatch(fetchTodo()); // Refresh tasks only if update succeeds
+    } catch (error) {
+      console.error("Error updating task:", error);
     }
-    const res = await response.json();
-    console.log(res);
-    dispatch(fetchTodo());
   };
 
   const clearTasks = async () => {
-    const response = await fetch(`http://localhost:5000/deleteAllPosts`, {
-      method: "DELETE",
-      credentials: "include",
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
-      return;
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/deleteAllPosts`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete all tasks");
+      }
+
+      dispatch(deleteAllTasks());
+      dispatch(fetchTodo());
+    } catch (error) {
+      console.error("Error clearing tasks:", error);
     }
-    const res = await response.json();
-    console.log(res);
-    dispatch(deleteAllTasks());
-    dispatch(fetchTodo());
   };
 
   return (
@@ -51,7 +62,7 @@ const DisplayAllTasks = () => {
       <p className="font-bold text-2xl">
         {tasks?.length === 0
           ? "Make your day productive"
-          : "Today you have {tasks.length} tasks!"}
+          : `Today you have ${tasks.length} tasks!`}
       </p>
       <div className="flex flex-col gap-2 bg-gray-600 h-[20vh] p-1">
         <p className="font-semibold text-xl h-[4vh]">High priority🔥</p>
@@ -59,38 +70,38 @@ const DisplayAllTasks = () => {
       <div className="flex flex-col gap-2 bg-gray-600 h-[25vh] p-1 overflow-x-hidden">
         <p className="font-semibold text-xl">Today tasks</p>
         <ul className="pl-1">
-          {tasks
-            ?.filter((task) => task.priority !== "high")
-            .map((task) => (
-              <li
-                className={`flex flex-row gap-2 task.completed ? "line-through text-gray-100" : ""`}
-                key={task._id}
-              >
-                <input
-                  type="checkbox"
-                  value={task.completed}
-                  checked={task.completed || isChecked}
-                  onChange={() => handleCompleted(task._id)}
-                />
-                {task.todo}
-              </li>
-            ))}
+          {tasks.map((task) => (
+            <li
+              className={`flex flex-row gap-2 ${
+                task.completed ? "line-through text-gray-100" : ""
+              }`}
+              key={task._id}
+            >
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleCompleted(task._id)}
+              />
+              {task.todo}
+            </li>
+          ))}
         </ul>
       </div>
       <div className="flex flex-col gap-2 bg-gray-600 h-[25vh] p-1 overflow-x-hidden">
         <p className="font-semibold text-xl h-[3vh]">Completed tasks</p>
         <ul className="pl-1 h-[22vh]">
           {tasks
-            ?.filter((task) => task.completed === true)
-            .map((task) => (
+            ?.filter((task) => task.completed)
+            .map((task, index) => (
               <li
-                className={`flex flex-row gap-2 task.completed ? "line-through text-gray-100" : ""`}
-                key={task.createdAt}
+                className={`flex flex-row gap-2 ${
+                  task.completed ? "line-through text-gray-100" : ""
+                }`}
+                key={index}
               >
                 <input
                   type="checkbox"
-                  value={task.completed}
-                  checked={task.completed || isChecked}
+                  checked={task.completed}
                   onChange={() => handleCompleted(task._id)}
                 />
                 {task.todo}
