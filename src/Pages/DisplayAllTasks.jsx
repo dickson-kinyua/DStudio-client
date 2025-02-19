@@ -17,32 +17,34 @@ const DisplayAllTasks = () => {
   }, [dispatch]);
 
   const handleCompleted = async (id) => {
-    const updated = tasks?.map((task) =>
-      task._id === id ? { ...task, completed: "!completed" } : task
-    );
-    console.log(updated);
-    
+  const updatedTask = tasks.find((task) => task._id === id);
+  if (!updatedTask) return;
 
-    try {
-      console.log(id);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/editPost/${id}`,
-        {
-          method: "PUT",
-          credentials: "include",
-        }
-      );
+  const updatedTaskData = { ...updatedTask, completed: !updatedTask.completed };
 
-      if (!response.ok) {
-        throw new Error("Failed to update task");
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/editPost/${id}`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedTaskData),
       }
+    );
 
-    console.log("success")
-    
-    } catch (error) {
-      console.error("Error updating task:", error);
+    if (!response.ok) {
+      throw new Error("Failed to update task");
     }
-  };
+
+    dispatch(updateTasks(updatedTaskData));
+  } catch (error) {
+    console.error("Error updating task:", error);
+  }
+};
+  
 
   const clearTasks = async () => {
     try {
@@ -59,7 +61,6 @@ const DisplayAllTasks = () => {
       }
 
       dispatch(deleteAllTasks());
-      dispatch(fetchTodo());
     } catch (error) {
       console.error("Error clearing tasks:", error);
     }
