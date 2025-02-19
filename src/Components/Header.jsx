@@ -39,7 +39,7 @@ const Header = () => {
       </div>
       <div className="flex flex-row gap-4 items-center">
         <p>{new Date().toLocaleDateString()}</p>
-        {!userInfo?.userName ? (
+        {userInfo?.userName ? (
           <button onClick={logout}>Logout</button>
         ) : (
           <Link to={"/login"}>Login</Link>
