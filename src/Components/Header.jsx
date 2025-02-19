@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../Features/Slices/UserSlice";
 import { Link } from "react-router-dom";
-import { deleteAllTasks } from "../Features/Slices/taskSlice";
+import { deleteAllTasks, logout } from "../Features/Slices/taskSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,9 +21,7 @@ const Header = () => {
       }
 
       const res = await response.json();
-      console.log(res);
-      dispatch(updateUser({}));
-      dispatch(deleteAllTasks());
+      dispatch(logout());
     } catch (error) {
       console.log(error);
     }
