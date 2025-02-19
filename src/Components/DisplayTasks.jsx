@@ -25,32 +25,30 @@ const DisplayTasks = () => {
     { name: "Remaining", value: 100 - completedPercentage },
   ];
   const colors = ["#0088FE", "#DDDDDD"]; // Blue for completed, gray for remaining
+const handleCompleted = async (id) => {
+  // ✅ Optimistically update Redux state
+  dispatch(updateTasks(id));
 
-  const handleCompleted = async (id) => {
-    const updated = tasks?.map((task) =>
-      task._id === id ? { ...task, completed: "!completed" } : task
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/editPost/${id}`,
+      {
+        method: "PUT",
+        credentials: "include",
+      }
     );
 
-    dispatch(updateTasks(updated));
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/editPost/${id}`,
-        {
-          method: "PUT",
-          credentials: "include",
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update task");
-      }
-
-      dispatch(fetchTodo()); // Refresh tasks only if update succeeds
-    } catch (error) {
-      console.error("Error updating task:", error);
+    if (!response.ok) {
+      throw new Error("Failed to update task");
     }
-  };
+  } catch (error) {
+    console.error("Error updating task:", error);
+    // ❌ Revert state if API call fails
+    dispatch(updateTasks(id));
+  }
+};
+
+  
   return (
     <div className="flex flex-col gap-3  p-2">
       <div className="h-auto flex justify-center w-full bg-orange-500 p-2 rounded-2xl">
