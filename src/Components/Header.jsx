@@ -9,24 +9,31 @@ const Header = () => {
   const logged = useSelector((state) => state.user.user);
 
   const logout = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
-        credentials: "include",
-        method: "POST",
-      });
-      if (!response.ok) {
-        const error = await response.json();
-        console.log(error);
-        return;
-      }
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+      credentials: "include",
+      method: "POST",
+    });
 
-      const res = await response.json();
-      dispatch(logout());
-      dispatch(updateUser({}))
-    } catch (error) {
-      console.log(error);
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log("Logout error:", data);
+      return;
     }
-  };
+
+    // Clear Redux state
+    dispatch(logout()); 
+    dispatch(updateUser({})); 
+
+    // Prevent stale data on refresh
+    dispatch(deleteAllTasks()); 
+
+  } catch (error) {
+    console.error("Error during logout:", error);
+  }
+};
+  
 
   return (
     <div className="flex flex-row items-center justify-between bg-gray-200 rounded-2xl p-2">
