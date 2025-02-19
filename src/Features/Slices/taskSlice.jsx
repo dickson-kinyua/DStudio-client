@@ -37,6 +37,11 @@ const taskSlice = createSlice({
     deleteAllTasks: (state) => {
       state.tasks = [];
     },
+    logout: (state) => {
+      state.tasks = []; // ✅ Clear tasks on logout
+      state.loading = false;
+      state.error = null;
+    },
     updateTasks: (state, action) => {
       const task = state.tasks.find((task) => task._id === action.payload);
       if (task) {
