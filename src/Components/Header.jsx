@@ -6,7 +6,7 @@ import { deleteAllTasks, logout } from "../Features/Slices/taskSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const authUser = useSelector((state) => state.user);
+  const {user,isAuthenticated} = useSelector((state) => state.user);
 
   const logout = async () => {
   try {
@@ -42,7 +42,7 @@ const Header = () => {
       </div>
       <div className="flex flex-row gap-4 items-center">
         <p>{new Date().toLocaleDateString()}</p>
-        {authUser?.isAuthenticated ? (
+        {isAuthenticated ? (
           <button onClick={logout}>Logout</button>
         ) : (
           <Link to={"/login"}>Login</Link>
