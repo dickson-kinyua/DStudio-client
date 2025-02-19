@@ -9,7 +9,7 @@ const userSlice = createSlice({
   reducers: {
     updateUser: (state, action) => {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.isAuthenticated = !state.isauthenticated;
     },
   },
 });
