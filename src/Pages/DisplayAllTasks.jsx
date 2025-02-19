@@ -16,6 +16,7 @@ const DisplayAllTasks = () => {
   }, [dispatch]);
 
   const handleCompleted = async (id) => {
+<<<<<<< HEAD
     dispatch(updateTasks(id));
 
     try {
@@ -33,9 +34,30 @@ const DisplayAllTasks = () => {
     } catch (error) {
       console.error("Error updating task:", error);
       dispatch(fetchTodo()); // Revert state if api call fails
-    }
-  };
+=======
+  // ✅ Optimistically update Redux state
+  dispatch(updateTasks(id));
 
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/editPost/${id}`,
+      {
+        method: "PUT",
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to update task");
+>>>>>>> daa95b07948e9ffb207f27deed488e610849e4df
+    }
+  } catch (error) {
+    console.error("Error updating task:", error);
+    // ❌ Revert state if API call fails
+    dispatch(updateTasks(id));
+  }
+};
+  
   const clearTasks = async () => {
     try {
       const response = await fetch(
@@ -51,7 +73,7 @@ const DisplayAllTasks = () => {
       }
 
       dispatch(deleteAllTasks());
-      dispatch(fetchTodo());
+      
     } catch (error) {
       console.error("Error clearing tasks:", error);
     }

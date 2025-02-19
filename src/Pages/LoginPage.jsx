@@ -46,8 +46,12 @@ const LoginPage = () => {
   }
 
   return (
+<<<<<<< HEAD
     <div className="flex flex-col gap-3 pt-5 items-center">
       <p className="font-bold text-2xl">Login</p>
+=======
+    <div className="flex flex-col gap-4 items-center p-4">
+>>>>>>> daa95b07948e9ffb207f27deed488e610849e4df
       <form onSubmit={handleLogin} className="flex flex-col gap-3 mt-10 w-3/4">
         <input
           type="text"

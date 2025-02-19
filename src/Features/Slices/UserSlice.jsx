@@ -9,11 +9,15 @@ const userSlice = createSlice({
   reducers: {
     updateUser: (state, action) => {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.isAuthenticated = !state.isauthenticated;
+    },
+    invalidateUser: (state) => {
+      state.user = {};
+      state.isAuthenticated = !state.isauthenticated;
     },
   },
 });
 
-export const { updateUser } = userSlice.actions;
+export const { updateUser,invalidateUser } = userSlice.actions;
 
 export default userSlice.reducer;

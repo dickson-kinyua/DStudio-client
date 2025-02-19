@@ -10,6 +10,7 @@ const CreatePost = () => {
   const [todo, setTodo] = useState("");
   const [error, setError] = useState(null);
   const [priority, setPriority] = useState("normal");
+  const [error, setError] = useState(null);
   const userInfo = useSelector((state) => state.user.user);
 
   const handlePriority = (e) => {
@@ -70,7 +71,6 @@ const CreatePost = () => {
             <option value="high">Priority(High)</option>
           </select>
           <button className="bg-orange-600 w-full p-3">Add to list 📃 </button>
-          {error && <div className="text-red-500">{error}</div>}
         </form>
       ) : (
         <LoginPage />

@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../Features/Slices/UserSlice";
+import { updateUser, invalidateUser } from "../Features/Slices/UserSlice";
 import { Link } from "react-router-dom";
-import { deleteAllTasks } from "../Features/Slices/taskSlice";
+import { deleteAllTasks, logout } from "../Features/Slices/taskSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const logged = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.user);
 
   const logout = async () => {
     try {
@@ -14,13 +14,14 @@ const Header = () => {
         credentials: "include",
         method: "POST",
       });
-
-      const res = await response.json();
-
       if (!response.ok) {
-        console.log(res.error);
+        const error = await response.json();
+        console.log(error);
         return;
       }
+
+      const res = await response.json();
+      console.log(res);
       dispatch(updateUser({}));
       dispatch(deleteAllTasks());
     } catch (error) {
@@ -34,6 +35,7 @@ const Header = () => {
         <p>DStudio</p>
       </div>
       <div className="flex flex-row gap-4 items-center">
+        <p>{new Date().toLocaleDateString()}</p>
         {logged?.userName ? (
           <button onClick={logout}>Logout</button>
         ) : (
