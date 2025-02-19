@@ -37,7 +37,7 @@ const DisplayAllTasks = () => {
         throw new Error("Failed to update task");
       }
 
-      dispatch(fetchTodo()); // Refresh tasks only if update succeeds
+    console.log("success")
     } catch (error) {
       console.error("Error updating task:", error);
     }
