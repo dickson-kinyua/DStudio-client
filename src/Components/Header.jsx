@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../Features/Slices/UserSlice";
+import { updateUser, invalidateUser} from "../Features/Slices/UserSlice";
 import { Link } from "react-router-dom";
 import { deleteAllTasks, logout } from "../Features/Slices/taskSlice";
 
@@ -24,7 +24,7 @@ const Header = () => {
 
     // Clear Redux state
     dispatch(logout()); 
-    dispatch(InvalidateUser({}))
+    dispatch(invalidateUser({}))
 
   } catch (error) {
     console.error("Error during logout:", error);
