@@ -42,7 +42,7 @@ const Header = () => {
       </div>
       <div className="flex flex-row gap-4 items-center">
         <p>{new Date().toLocaleDateString()}</p>
-        {authUser?.isAuthenticated (
+        {authUser?.isAuthenticated ? (
           <button onClick={logout}>Logout</button>
         ) : (
           <Link to={"/login"}>Login</Link>
