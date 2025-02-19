@@ -21,7 +21,7 @@ const DisplayAllTasks = () => {
       task._id === id ? { ...task, completed: "!completed" } : task
     );
     console.log(updated);
-    dispatch(updateTasks(updated));
+    
 
     try {
       console.log(id);
@@ -38,6 +38,7 @@ const DisplayAllTasks = () => {
       }
 
     console.log("success")
+      dispatch(updateTasks(updated));
     } catch (error) {
       console.error("Error updating task:", error);
     }
