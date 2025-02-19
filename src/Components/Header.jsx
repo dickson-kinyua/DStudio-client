@@ -24,7 +24,7 @@ const Header = () => {
 
     // Clear Redux state
     dispatch(logout()); 
-    dispatch(InvalidateUser({})
+    dispatch(InvalidateUser({}))
 
     // Prevent stale data on refresh
     dispatch(deleteAllTasks()); 
