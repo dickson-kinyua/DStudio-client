@@ -40,7 +40,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full items-center pt-4 bg-orange-500 z-40">
+    <div className="flex flex-col w-full items-center p-4 bg-orange-500 z-40">
       <p className="font-bold text-2xl">Register a new account</p>
       <form
         onSubmit={handleRegister}
