@@ -27,7 +27,9 @@ const taskSlice = createSlice({
       state.tasks = [];
     },
     updateTasks: (state, action) => {
-      state.tasks = action.payload;
+      const task = state.tasks.find((task) => task._id === action.payload);
+      if (item) {
+        task.completed = !task.completed;
     },
   },
   extraReducers: (builder) => {
