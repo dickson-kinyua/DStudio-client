@@ -22,7 +22,7 @@ const Header = () => {
 
       const res = await response.json();
       dispatch(logout());
-      dispatch(updateUser())
+      dispatch(updateUser({}))
     } catch (error) {
       console.log(error);
     }
