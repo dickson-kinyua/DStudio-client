@@ -28,7 +28,7 @@ const taskSlice = createSlice({
     },
     updateTasks: (state, action) => {
       const task = state.tasks.find((task) => task._id === action.payload);
-      if (item) {
+      if (task) {
         task.completed = !task.completed;
     },
   },
