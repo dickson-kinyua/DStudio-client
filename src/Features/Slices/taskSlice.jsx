@@ -30,6 +30,7 @@ const taskSlice = createSlice({
       const task = state.tasks.find((task) => task._id === action.payload);
       if (task) {
         task.completed = !task.completed;
+      }
     },
   },
   extraReducers: (builder) => {
