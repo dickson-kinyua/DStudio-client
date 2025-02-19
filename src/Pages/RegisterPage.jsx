@@ -40,7 +40,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full items-center pt-5 h-[100vh] bg-orange-500 z-40">
+    <div className="flex flex-col w-full items-center pt-5">
       <p className="font-bold text-2xl">Register a new account</p>
       <form
         onSubmit={handleRegister}
@@ -48,17 +48,18 @@ const RegisterPage = () => {
       >
         <input
           type="text"
-          placeholder="Your name"
+          placeholder="Your name( max 8 characters)"
           value={name}
+          maxLength={8}
           onChange={(e) => setName(e.target.value)}
-          className="p-3 text-gray-700"
+          className="p-3 text-gray-700 bg-gray-200"
         />
         <input
           type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="p-3 text-gray-700"
+          className="p-3 text-gray-700 bg-gray-200"
         />
         <button className="bg-gray-600 text-white p-3">Register</button>
       </form>

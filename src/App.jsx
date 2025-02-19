@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
       <div
-        className=" text-gray bg-gray-100
+        className=" text-gray-700 bg-gray-100
        h-[100vh] sm:h-auto"
       >
         <Routes>

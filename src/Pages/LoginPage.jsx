@@ -46,25 +46,26 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4  bg-orange-500 items-center h-[100vh]">
+    <div className="flex flex-col gap-3 pt-5 items-center">
+      <p className="font-bold text-2xl">Login</p>
       <form onSubmit={handleLogin} className="flex flex-col gap-3 mt-10 w-3/4">
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="p-3 text-gray-800"
+          className="p-3 text-gray-800 bg-gray-200"
         />
         <input
           type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="p-3 text-gray-800"
+          className="p-3 text-gray-800 bg-gray-200"
         />
         <button className="bg-gray-600 text-white p-3">Login</button>
       </form>
-      {error && <div>{error}</div>}
+      {error && <div className="text-red-500">{error}</div>}
 
       <p>
         New to DStudio?

@@ -14,14 +14,13 @@ const Header = () => {
         credentials: "include",
         method: "POST",
       });
-      if (!response.ok) {
-        const error = await response.json();
-        console.log(error);
-        return;
-      }
 
       const res = await response.json();
-      console.log(res);
+
+      if (!response.ok) {
+        console.log(res.error);
+        return;
+      }
       dispatch(updateUser({}));
       dispatch(deleteAllTasks());
     } catch (error) {
@@ -30,17 +29,19 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-between bg-gray-200 rounded-2xl p-2">
+    <div className="flex flex-row items-center justify-between bg-gray-200 rounded-2xl p-2 border-solid border-2 border-orange-500">
       <div className="font-bold">
         <p>DStudio</p>
       </div>
       <div className="flex flex-row gap-4 items-center">
-        <p>{new Date().toLocaleDateString()}</p>
         {logged?.userName ? (
           <button onClick={logout}>Logout</button>
         ) : (
-          <Link to={"/login"}>Login</Link>
+          <Link to={"/login"} className="bg-orange-500 py-1 px-2 rounded-xl">
+            Sign in
+          </Link>
         )}
+        <p>{new Date().toLocaleDateString()}</p>
       </div>
     </div>
   );

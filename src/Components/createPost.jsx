@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const CreatePost = () => {
   const [todo, setTodo] = useState("");
+  const [error, setError] = useState(null);
   const [priority, setPriority] = useState("normal");
   const userInfo = useSelector((state) => state.user.user);
 
@@ -17,6 +18,7 @@ const CreatePost = () => {
 
   const handleCreateTask = async (e) => {
     const newPost = { todo, priority };
+    setTodo("");
 
     e.preventDefault();
     try {
@@ -29,13 +31,13 @@ const CreatePost = () => {
           credentials: "include",
         }
       );
+
+      const data = await response.json();
+
       if (!response.ok) {
-        const error = await response.json();
-        console.log(error);
+        setError(data.error);
         return;
       }
-      const res = await response.json();
-      console.log(res);
       setTodo("");
     } catch (error) {
       console.log(error);
@@ -50,11 +52,12 @@ const CreatePost = () => {
       {userInfo?.userName ? (
         <form
           onSubmit={handleCreateTask}
-          className="flex flex-col items-center w-3/5 mx-auto gap-4 p-3"
+          className="flex flex-col items-center w-3/4 mx-auto gap-4 p-3"
         >
           <input
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
+            maxLength={8}
             type="text"
             className="p-2 text-black w-full bg-white"
             placeholder="Task title"
@@ -67,6 +70,7 @@ const CreatePost = () => {
             <option value="high">Priority(High)</option>
           </select>
           <button className="bg-orange-600 w-full p-3">Add to list 📃 </button>
+          {error && <div className="text-red-500">{error}</div>}
         </form>
       ) : (
         <LoginPage />

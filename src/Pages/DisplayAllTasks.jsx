@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 const DisplayAllTasks = () => {
   const tasks = useSelector((state) => state.task.tasks);
-  console.log(tasks);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,14 +16,9 @@ const DisplayAllTasks = () => {
   }, [dispatch]);
 
   const handleCompleted = async (id) => {
-    const updated = tasks?.map((task) =>
-      task._id === id ? { ...task, completed: "!completed" } : task
-    );
-    console.log(updated);
-    dispatch(updateTasks(updated));
+    dispatch(updateTasks(id));
 
     try {
-      console.log(id);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/editPost/${id}`,
         {
@@ -36,10 +30,9 @@ const DisplayAllTasks = () => {
       if (!response.ok) {
         throw new Error("Failed to update task");
       }
-
-      dispatch(fetchTodo()); // Refresh tasks only if update succeeds
     } catch (error) {
       console.error("Error updating task:", error);
+      dispatch(fetchTodo()); // Revert state if api call fails
     }
   };
 
@@ -75,7 +68,7 @@ const DisplayAllTasks = () => {
           : `Today you have ${tasks.length} tasks!`}
       </p>
       <div className="flex flex-col gap-2 bg-orange-500  p-2">
-        <p className="font-semibold text-xl h-[4vh]">High priority🔥</p>
+        <p className="font-semibold text-xl h-[4vh]">High priority🔥:</p>
         <ul className="pl-1 grid grid-cols-2">
           {tasks
             ?.filter((task) => task.priority === "high")
@@ -97,7 +90,7 @@ const DisplayAllTasks = () => {
         </ul>
       </div>
       <div className="flex flex-col gap-2 bg-orange-400 p-2">
-        <p className="font-semibold text-xl">Other tasks</p>
+        <p className="font-semibold text-xl">Other tasks :</p>
         <ul className="pl-1 grid grid-cols-2">
           {tasks
             ?.filter((task) => task.priority !== "high")
@@ -119,7 +112,10 @@ const DisplayAllTasks = () => {
         </ul>
       </div>
 
-      <button className="bg-gray-400 text-gray-950 p-2" onClick={clearTasks}>
+      <button
+        className="bg-gray-700 text-gray-50 p-2 w-fit self-center"
+        onClick={clearTasks}
+      >
         Clear list ✖
       </button>
     </div>

@@ -11,7 +11,7 @@ const Welcoming = () => {
   return (
     <div className="w-full p-2">
       {userInfo.userName ? (
-        <p className="text-2xl font-bold text-center h-10 capitalize">
+        <p className="text-xl font-bold text-center h-10 capitalize">
           {completedTasks <= 0 && `Welcome back, ${userInfo.userName}!`}
           {completedTasks > 0 &&
             completedTasks < totalTasks &&
@@ -20,7 +20,7 @@ const Welcoming = () => {
             "You are a masterpiece, congratulations!"}
         </p>
       ) : (
-        <p className="text-xl font-semibold text-center">
+        <p className="text-xl  font-bold text-center">
           Get started by signing in
         </p>
       )}
