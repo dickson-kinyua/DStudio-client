@@ -25,6 +25,7 @@ const Header = () => {
 
     // Clear Redux state
     dispatch(invalidateUser())
+    dispatch(deleteAllTasks())
 
   } catch (error) {
     console.error("Error during logout:", error);
