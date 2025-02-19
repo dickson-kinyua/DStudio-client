@@ -15,15 +15,15 @@ const Header = () => {
       method: "POST",
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
-      console.log("Logout error:", data);
+      const error=await response.json()
+      console.log("Logout error:", error);
       return;
     }
+    const data = await response.json()
+    console.log(data)
 
     // Clear Redux state
-    dispatch(logout()); 
     dispatch(invalidateUser())
 
   } catch (error) {
