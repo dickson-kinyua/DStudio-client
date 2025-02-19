@@ -46,7 +46,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4  bg-orange-500 items-center h-[100vh]">
+    <div className="flex flex-col gap-4  bg-orange-500 items-center p-4">
       <form onSubmit={handleLogin} className="flex flex-col gap-3 mt-10 w-3/4">
         <input
           type="text"
