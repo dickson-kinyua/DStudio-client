@@ -26,9 +26,6 @@ const Header = () => {
     dispatch(logout()); 
     dispatch(InvalidateUser({}))
 
-    // Prevent stale data on refresh
-    dispatch(deleteAllTasks()); 
-
   } catch (error) {
     console.error("Error during logout:", error);
   }
