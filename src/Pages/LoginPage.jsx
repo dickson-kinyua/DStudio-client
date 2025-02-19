@@ -53,14 +53,14 @@ const LoginPage = () => {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="p-3 text-gray-800"
+          className="p-3 text-gray-800 bg-gray-200"
         />
         <input
           type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="p-3 text-gray-800"
+          className="p-3 text-gray-800 bg-gray-200"
         />
         <button className="bg-gray-600 text-white p-3">Login</button>
       </form>
