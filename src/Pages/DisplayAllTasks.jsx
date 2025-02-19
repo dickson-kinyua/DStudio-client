@@ -38,7 +38,7 @@ const DisplayAllTasks = () => {
       }
 
     console.log("success")
-      dispatch(updateTasks(updated));
+    
     } catch (error) {
       console.error("Error updating task:", error);
     }
