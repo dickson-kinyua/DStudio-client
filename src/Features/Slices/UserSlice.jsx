@@ -11,8 +11,8 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = !state.isauthenticated;
     },
-    invalidateUser: (state, action) => {
-      state.user = action.payload;
+    invalidateUser: (state) => {
+      state.user = {};
       state.isAuthenticated = !state.isauthenticated;
     },
   },
